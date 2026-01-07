@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"runtime/debug"
 
 	"github.com/spf13/cobra"
 	"github.com/yderana/xerador/generator"
@@ -16,7 +17,25 @@ var (
 	License = ""
 )
 
+func resolvedVersion() string {
+	// kalau kamu build pakai -ldflags, tetap dipakai
+	if Version != "" && Version != "dev" {
+		return Version
+	}
+
+	// kalau install via go install @vX.Y.Z, ambil dari build info
+	if bi, ok := debug.ReadBuildInfo(); ok {
+		if bi.Main.Version != "" && bi.Main.Version != "(devel)" {
+			return bi.Main.Version // contoh: "v0.1.0"
+		}
+	}
+
+	return "dev"
+}
+
 func banner() {
+	v := resolvedVersion()
+
 	fmt.Printf("\x1b[36m%s\x1b[0m", fmt.Sprintf(`
       ██╗  ██╗███████╗██████╗  █████╗ ██████╗  ██████╗ ██████╗ 
       ╚██╗██╔╝██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔═══██╗██╔══██╗
@@ -26,7 +45,7 @@ func banner() {
       ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝  v%s
 
 xerador will generate a new service or module in your nestjs monorepo services
-`, Version))
+`, v))
 }
 
 func Execute() {
@@ -37,6 +56,8 @@ func Execute() {
 }
 
 func newRootCmd() *cobra.Command {
+	v := resolvedVersion()
+
 	// pakai generator.Options supaya tidak mapping-mapping lagi
 	opts := &generator.Options{}
 
@@ -75,7 +96,7 @@ func newRootCmd() *cobra.Command {
 			showVersion, _ := c.Flags().GetBool("version")
 			if showVersion {
 				fmt.Printf("name   : %s\n", AppName)
-				fmt.Printf("version: %s\n", Version)
+				fmt.Printf("version: %s\n", v)
 				if License != "" {
 					fmt.Printf("license: %s\n", License)
 				}
