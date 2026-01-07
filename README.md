@@ -1,29 +1,29 @@
 # 🚀 Xerador
 
-**Xerador** adalah CLI tool berbasis **Go** untuk meng-generate **NestJS monorepo** dengan cepat dan konsisten.
+**Xerador** is a fast and opinionated **Go-based CLI tool** for generating **NestJS monorepo projects**.
 
-Dirancang untuk workflow **create repo → create project → create module** tanpa ribet, lengkap dengan struktur folder, schema, repository, provider, dan integrasi otomatis ke `app.module.ts`.
+It helps you scaffold **repositories, projects (services), and modules** with a consistent structure, automatic wiring, and minimal manual setup.
 
 ---
 
-## ✨ Fitur
+## ✨ Features
 
-- ⚡ Generate **NestJS monorepo** dengan struktur standar
-- 📦 Create **project/service**
-- 🧩 Create **module** (auto register ke app.module)
-- 🧠 Update otomatis:
+- ⚡ Generate **NestJS monorepo** structure
+- 📦 Create **project / service**
+- 🧩 Create **module** with auto-registration
+- 🔄 Automatically updates:
   - `app.module.ts`
-  - `tsconfig.json`
-  - `package.json` (jest paths)
-- 🎨 CLI interaktif (select & prompt)
-- 🟣 Status task rapi (`✔ done`, `↷ skipped`)
-- 🧰 Ditulis full di **Go** (single binary, cepat & portable)
+  - `tsconfig.json` (paths)
+  - `package.json` (jest moduleNameMapper)
+- 🎨 Interactive CLI (select & prompt)
+- 🟣 Clean task output (`✔ done`, `↷ skipped`)
+- 🚀 Single binary (written in Go)
 
 ---
 
-## 📦 Instalasi
+## 📦 Installation
 
-### Menggunakan Go (Recommended)
+### Using Go (Recommended)
 
 ```bash
 go install github.com/yderana/xerador@latest
