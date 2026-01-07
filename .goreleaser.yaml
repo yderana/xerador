@@ -1,0 +1,30 @@
+project_name: xerador
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - main: ./main.go
+    binary: xerador
+    ldflags:
+      - -s -w
+      - -X github.com/yderana/xerador/cmd.Version={{ .Version }}
+      - -X github.com/yderana/xerador/cmd.AppName=xerador
+      - -X github.com/yderana/xerador/cmd.License=MIT
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+release:
+  github:
+    owner: yderana
+    name: xerador

@@ -1,0 +1,13 @@
+input Filter {
+  page: Int 
+  limit: Int
+  orderBy: String
+  sort: SortEnum
+  noCache: Boolean
+  query: String
+}
+
+enum SortEnum {
+  asc
+  desc
+}

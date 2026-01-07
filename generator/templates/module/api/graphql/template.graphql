@@ -1,0 +1,53 @@
+type Query {
+  variableDetail(id: String!): ResponseTemplate
+  variableList(filter: Filter): ResponseTemplateList
+}
+
+type Mutation {
+  createTemplate(createTemplateInput: TemplateSave!): ResponseTemplate
+  updateTemplate(id: String!, updateTemplateInput: TemplateSave!): ResponseTemplate
+  deleteTemplate(id: String!): ResponseTemplate
+}
+
+scalar Date
+
+type Subscription {
+  variableData(id:String!): ResponseTemplate
+}
+
+input TemplateSave {
+  name: String
+}
+
+type ResponseTemplate{
+  result: TemplateResponse
+  statusCode: Int
+  success: Boolean
+  message: String
+  meta: Meta
+}
+
+type ResponseTemplateList {
+  result: [TemplateResponse]
+  statusCode: Int
+  success: Boolean
+  message: String
+  meta: Meta
+}
+
+type Meta {
+  page: Int
+  limit: Int
+  totalDataPage: Int
+  totalData: Int
+  totalPages: Int
+}
+
+type TemplateResponse {
+  id: String
+  name: String
+  createdBy: String
+  createdAt: Date
+  modifiedBy: String
+  modifiedAt: Date
+}

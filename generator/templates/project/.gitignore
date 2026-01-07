@@ -1,0 +1,8 @@
+.vscode
+node_modules/*
+.env
+.env.dev
+.env.local
+coverage
+dist/*
+# package-lock.json
